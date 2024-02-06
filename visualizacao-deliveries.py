@@ -40,29 +40,29 @@ geo_deliveries_df.head()
 # Visualizar o gráfico com a biblioteca matplotlib
 
 
-# cria o plot vazio
-fig, ax = plt.subplots(figsize = (50/2.54, 50/2.54))
+# cria o 1º plot vazio
+fig1, ax1 = plt.subplots(figsize=(50/2.54, 50/2.54))
 
 # plot mapa do distrito federal
-mapa.plot(ax=ax, alpha=0.4, color="lightgrey")
+mapa.plot(ax=ax1, alpha=0.4, color="lightgrey")
 
 # plot das entregas
-geo_deliveries_df.query("region == 'df-0'").plot(ax=ax, markersize=1, color="red", label="df-0")
-geo_deliveries_df.query("region == 'df-1'").plot(ax=ax, markersize=1, color="blue", label="df-1")
-geo_deliveries_df.query("region == 'df-2'").plot(ax=ax, markersize=1, color="seagreen", label="df-2")
+geo_deliveries_df.query("region == 'df-0'").plot(ax=ax1, markersize=1, color="red", label="df-0")
+geo_deliveries_df.query("region == 'df-1'").plot(ax=ax1, markersize=1, color="blue", label="df-1")
+geo_deliveries_df.query("region == 'df-2'").plot(ax=ax1, markersize=1, color="seagreen", label="df-2")
 
 # plot dos hubs
-geo_hub_df.plot(ax=ax, markersize=30, marker="x", color="black", label="hub")
+geo_hub_df.plot(ax=ax1, markersize=50, marker="x", color="black", label="hub")
 
 # plot da legenda
 plt.title("Entregas no Distrito Federal por Região", fontdict={"fontsize": 16})
-lgnd = plt.legend(prop={"size": 15})
-for handle in lgnd.legendHandles:
+lgnd1 = plt.legend(prop={"size": 15})
+for handle in lgnd1.legendHandles:
     handle.set_sizes([50])
-	
-plt.savefig(mapa-regiao.png)
 
-plt.close(fig)
+# Salvar o primeiro gráfico como um arquivo PNG
+fig1.savefig("entregas-regiao.png")
+plt.close(fig1)
 
 # Gráfico de entregas por região
 
@@ -73,12 +73,16 @@ data.head()
 
 # visualizando o gráfico
 
-import seaborn as sns
+# criar o 2º plot
+fig2, ax2 = plt.subplots()
 
+# visualizando o gráfico com Seaborn
 with sns.axes_style('whitegrid'):
-  entregas-regiao = sns.barplot(data=data, x="region", y="region_percent", ci=None, palette="pastel")
-  entregas-regiao.set(title='Proporção de entregas por região', xlabel='Região', ylabel='Proporção');
-  
-fig.savefig(entregas-regiao.png)
+    sns.barplot(data=data, x="region", y="region_percent", ci=None, palette="pastel")
+    plt.title('Proporção de entregas por região')
+    plt.xlabel('Região')
+    plt.ylabel('Proporção')
 
-plt.close(fig)
+# Salvar o segundo gráfico como um arquivo PNG
+fig2.savefig("proporcao-entregas-regiao.png")
+plt.close(fig2)
